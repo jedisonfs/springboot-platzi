@@ -41,13 +41,13 @@ public class ProductoRepository implements ProductRepostitory {
 	@Override
 	public Optional<ProductDTO> getProduct(int productId) {
 		// Optional<ProductDTO>
-		return productoCrudRepository.findById(productId).map(producto -> productMapper.toProductDto(producto));
+		return productoCrudRepository.findById(productId).map(producto -> productMapper.toProductDto(producto, producto.getCategory()));
 	}
 
 	@Override
 	public ProductDTO save(ProductDTO productDTO) {
 		Product product = productMapper.toProduct(productDTO);
-		return productMapper.toProductDto(product);
+		return productMapper.toProductDto(product, product.getCategory());
 	}
 
 	@Override

@@ -8,7 +8,8 @@ public class ProductDTO {
     private double price;
     private int stock;
     private Boolean active;
-    private CategoryDTO categoryDto;
+    private String descriptionCategory;
+    private boolean stateCategory;
 
     public int getProductId() {
         return productId;
@@ -50,20 +51,27 @@ public class ProductDTO {
         this.stock = stock;
     }
 
-    public boolean isActive() {
+    public Boolean getActive() {
         return active;
     }
 
-    public void setActive(boolean active) {
+    public void setActive(Boolean active) {
         this.active = active;
     }
 
-    public CategoryDTO getCategoryDto() {
-        return categoryDto;
+    public String getDescriptionCategory() {
+        return descriptionCategory;
     }
 
-    public void setCategoryDto(CategoryDTO categoryDto) {
-        this.categoryDto = categoryDto;
+    public void setDescriptionCategory(String descriptionCategory) {
+        this.descriptionCategory = descriptionCategory;
     }
 
+    public boolean isStateCategory() {
+        return stateCategory;
+    }
+
+    public void setStateCategory(boolean stateCategory) {
+        this.stateCategory = stateCategory;
+    }
 }
