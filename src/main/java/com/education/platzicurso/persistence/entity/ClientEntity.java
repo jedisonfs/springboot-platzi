@@ -12,7 +12,7 @@ import javax.validation.constraints.NotNull;
 
 @Entity
 @Table(name = "client", schema = "platzi")
-public class Client implements Serializable {
+public class ClientEntity implements Serializable {
 
 	private static final long serialVersionUID = 1L;
 
@@ -40,7 +40,7 @@ public class Client implements Serializable {
 
 	@NotNull
 	@OneToMany(mappedBy = "client")
-	private List<Purchase> purchase;
+	private List<PurchaseEntity> purchaseEntity;
 
 	public String getId() {
 		return id;
@@ -90,12 +90,12 @@ public class Client implements Serializable {
 		this.addressEmail = addressEmail;
 	}
 
-	public List<Purchase> getPurchase() {
-		return purchase;
+	public List<PurchaseEntity> getPurchase() {
+		return purchaseEntity;
 	}
 
-	public void setPurchase(List<Purchase> purchase) {
-		this.purchase = purchase;
+	public void setPurchase(List<PurchaseEntity> purchaseEntity) {
+		this.purchaseEntity = purchaseEntity;
 	}
 
 }

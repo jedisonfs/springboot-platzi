@@ -12,16 +12,14 @@ import javax.persistence.MapsId;
 import javax.persistence.Table;
 import javax.validation.constraints.NotNull;
 
-import com.education.platzicurso.persistence.entity.PurchaseItemPk;
-
 @Entity
 @Table(name = "purchase_item", schema = "platzi")
-public class PurchaseItem implements Serializable {
+public class PurchaseItemEntity implements Serializable {
 
 	private static final long serialVersionUID = 1L;
 
 	@EmbeddedId
-	private PurchaseItemPk id;
+	private PurchaseItemPkEntity id;
 
 	@NotNull
 	private Integer quantity;
@@ -36,17 +34,17 @@ public class PurchaseItem implements Serializable {
 	@ManyToOne(fetch = FetchType.LAZY)
 	@MapsId(value = "purchaseId")
 	@JoinColumn(name = "fk_purchase_id", insertable = false, updatable = false, nullable = false)
-	private Purchase purchase;
+	private PurchaseEntity purchaseEntity;
 
 	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name = "fk_id_producto", nullable = false)
-	private Product products;
+	private ProductEntity products;
 
-	public PurchaseItemPk getId() {
+	public PurchaseItemPkEntity getId() {
 		return id;
 	}
 
-	public void setId(PurchaseItemPk id) {
+	public void setId(PurchaseItemPkEntity id) {
 		this.id = id;
 	}
 
@@ -74,19 +72,19 @@ public class PurchaseItem implements Serializable {
 		this.state = state;
 	}
 
-	public Purchase getPurchase() {
-		return purchase;
+	public PurchaseEntity getPurchase() {
+		return purchaseEntity;
 	}
 
-	public void setPurchase(Purchase purchase) {
-		this.purchase = purchase;
+	public void setPurchase(PurchaseEntity purchaseEntity) {
+		this.purchaseEntity = purchaseEntity;
 	}
 
-	public Product getProducts() {
+	public ProductEntity getProducts() {
 		return products;
 	}
 
-	public void setProducts(Product products) {
+	public void setProducts(ProductEntity products) {
 		this.products = products;
 	}
 

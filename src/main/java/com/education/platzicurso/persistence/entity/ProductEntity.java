@@ -16,7 +16,7 @@ import javax.validation.constraints.NotNull;
 @Entity
 @Table(name = "product", schema = "platzi", uniqueConstraints = {
         @UniqueConstraint(columnNames = "barcode", name = "uk_barcode")})
-public class Product implements Serializable {
+public class ProductEntity implements Serializable {
 
     private static final long serialVersionUID = 1L;
 
@@ -49,7 +49,7 @@ public class Product implements Serializable {
 
     @ManyToOne
     @JoinColumn(name = "fk_category", insertable = false, updatable = false)
-    private Category category;
+    private CategoryEntity categoryEntity;
 
     public Integer getProductId() {
         return productId;
@@ -107,12 +107,12 @@ public class Product implements Serializable {
         this.state = state;
     }
 
-    public Category getCategory() {
-        return category;
+    public CategoryEntity getCategory() {
+        return categoryEntity;
     }
 
-    public void setCategory(Category category) {
-        this.category = category;
+    public void setCategory(CategoryEntity categoryEntity) {
+        this.categoryEntity = categoryEntity;
     }
 
 }

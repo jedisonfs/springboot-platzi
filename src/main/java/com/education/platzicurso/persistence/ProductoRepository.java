@@ -3,10 +3,8 @@ package com.education.platzicurso.persistence;
 import com.education.platzicurso.domain.ProductDTO;
 import com.education.platzicurso.domain.repository.ProductRepostitory;
 import com.education.platzicurso.persistence.crud.ProductoCrudRepository;
-import com.education.platzicurso.persistence.entity.Product;
+import com.education.platzicurso.persistence.entity.ProductEntity;
 import com.education.platzicurso.persistence.mapper.ProductMapper;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
@@ -15,26 +13,29 @@ import java.util.Optional;
 @Repository
 public class ProductoRepository implements ProductRepostitory {
 
-	private ProductoCrudRepository productoCrudRepository;
+	private final ProductoCrudRepository productoCrudRepository;
+	private final ProductMapper productMapper;
 
-	@Autowired(required = true)
-	private ProductMapper productMapper;
+    public ProductoRepository(ProductoCrudRepository productoCrudRepository, ProductMapper productMapper) {
+        this.productoCrudRepository = productoCrudRepository;
+        this.productMapper = productMapper;
+    }
 
-	@Override
+    @Override
 	public List<ProductDTO> getAll() {
-		List<Product> products = (List<Product>) productoCrudRepository.findAll();
-		return productMapper.toProducts(products);
+		List<ProductEntity> productEntities = (List<ProductEntity>) productoCrudRepository.findAll();
+		return productMapper.toProducts(productEntities);
 	}
 
 	@Override
 	public Optional<List<ProductDTO>> getByCategory(int idCategoria) {
-		List<Product> products = productoCrudRepository.findByCategoryIdOrderByNameAsc(idCategoria);
-		return Optional.of(productMapper.toProducts(products));
+		List<ProductEntity> productEntities = productoCrudRepository.findByCategoryIdOrderByNameAsc(idCategoria);
+		return Optional.of(productMapper.toProducts(productEntities));
 	}
 
 	@Override
 	public Optional<List<ProductDTO>> getScarseProducts(int quantity) {
-		Optional<List<Product>> products = productoCrudRepository.findByQuantityStockIsLessThanAndState(quantity, true);
+		Optional<List<ProductEntity>> products = productoCrudRepository.findByQuantityStockIsLessThanAndState(quantity, true);
 		return products.map(prods -> productMapper.toProducts(prods));
 	}
 
@@ -46,8 +47,8 @@ public class ProductoRepository implements ProductRepostitory {
 
 	@Override
 	public ProductDTO save(ProductDTO productDTO) {
-		Product product = productMapper.toProduct(productDTO);
-		return productMapper.toProductDto(product);
+		ProductEntity productEntity = productMapper.toProduct(productDTO);
+		return productMapper.toProductDto(productEntity);
 	}
 
 	@Override

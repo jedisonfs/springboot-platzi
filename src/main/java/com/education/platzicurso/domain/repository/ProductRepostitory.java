@@ -1,7 +1,6 @@
 package com.education.platzicurso.domain.repository;
 
 import com.education.platzicurso.domain.ProductDTO;
-import com.education.platzicurso.persistence.entity.Product;
 
 import java.util.List;
 import java.util.Optional;

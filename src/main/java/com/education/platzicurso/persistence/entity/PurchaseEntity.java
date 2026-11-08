@@ -18,7 +18,7 @@ import javax.validation.constraints.NotNull;
 
 @Entity
 @Table(name = "purchase", schema = "platzi")
-public class Purchase implements Serializable {
+public class PurchaseEntity implements Serializable {
 
 	private static final long serialVersionUID = 1L;
 
@@ -43,11 +43,11 @@ public class Purchase implements Serializable {
 	private String state;
 
 	@ManyToOne
-	@JoinColumn(name = "client", insertable = false, updatable = false)
-	private Client client;
+	@JoinColumn(name = "clientEntity", insertable = false, updatable = false)
+	private ClientEntity clientEntity;
 
 	@OneToMany(mappedBy = "purchase", cascade = CascadeType.ALL)
-	private List<PurchaseItem> products;
+	private List<PurchaseItemEntity> products;
 
 	public Integer getPurchaseId() {
 		return purchaseId;
@@ -97,19 +97,19 @@ public class Purchase implements Serializable {
 		this.state = state;
 	}
 
-	public Client getClient() {
-		return client;
+	public ClientEntity getClient() {
+		return clientEntity;
 	}
 
-	public void setClient(Client client) {
-		this.client = client;
+	public void setClient(ClientEntity clientEntity) {
+		this.clientEntity = clientEntity;
 	}
 
-	public List<PurchaseItem> getProducts() {
+	public List<PurchaseItemEntity> getProducts() {
 		return products;
 	}
 
-	public void setProducts(List<PurchaseItem> products) {
+	public void setProducts(List<PurchaseItemEntity> products) {
 		this.products = products;
 	}
 

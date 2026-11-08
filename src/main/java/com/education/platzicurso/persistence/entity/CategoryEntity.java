@@ -15,7 +15,7 @@ import javax.validation.constraints.NotNull;
 
 @Entity
 @Table(name = "category", schema = "platzi")
-public class Category implements Serializable {
+public class CategoryEntity implements Serializable {
 
 	private static final long serialVersionUID = 1L;
 
@@ -32,7 +32,7 @@ public class Category implements Serializable {
 	private Boolean state;
 
 	@OneToMany(mappedBy = "category", fetch = FetchType.LAZY)
-	private List<Product> product;
+	private List<ProductEntity> productEntity;
 
 	public Integer getCategoryId() {
 		return categoryId;
@@ -58,12 +58,12 @@ public class Category implements Serializable {
 		this.state = state;
 	}
 
-	public List<Product> getProduct() {
-		return product;
+	public List<ProductEntity> getProduct() {
+		return productEntity;
 	}
 
-	public void setProduct(List<Product> product) {
-		this.product = product;
+	public void setProduct(List<ProductEntity> productEntity) {
+		this.productEntity = productEntity;
 	}
 
 }

@@ -10,7 +10,7 @@ import org.springframework.stereotype.Component;
 
 import com.education.platzicurso.domain.CategoryDTO;
 import com.education.platzicurso.domain.ProductDTO;
-import com.education.platzicurso.persistence.entity.Product;
+import com.education.platzicurso.persistence.entity.ProductEntity;
 
 @Component(value = "ProductMapper")
 @Mapper(componentModel = "spring", uses = {CategoryDTO.class})
@@ -23,11 +23,11 @@ public interface ProductMapper {
             @Mapping(source = "quantityStock", target = "stock"),
             @Mapping(source = "state", target = "active"),
             @Mapping(source = "category", target = "categoryDto")})
-    ProductDTO toProductDto(Product product);
+    ProductDTO toProductDto(ProductEntity productEntity);
 
-    List<ProductDTO> toProducts(List<Product> products);
+    List<ProductDTO> toProducts(List<ProductEntity> productEntities);
 
     @InheritConfiguration
     @Mapping(target = "barcode", ignore = true)
-    Product toProduct(ProductDTO productDTO);
+    ProductEntity toProduct(ProductDTO productDTO);
 }
