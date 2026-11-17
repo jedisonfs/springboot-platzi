@@ -55,7 +55,7 @@ La guía detallada de cada fase se prepara cuando termina la anterior.
 
 Entorno del usuario: Maven 3.9.11 con JDK 21. El comando `java` del PATH en un equipo apunta al JDK 25.
 
-- [ ] **Paso 0: Preparación.** Crear la rama `feature/migracion-boot3` y correr `./mvnw clean compile` para ver el estado de partida.
+- [x] **Paso 0: Preparación.** Crear la rama `feature/migracion-boot3` y correr `./mvnw clean compile` para ver el estado de partida.
 - [ ] **Paso 1: Corregir bugs con la versión actual** (antes de migrar, para no mezclar problemas):
   - Inyección por constructor con campos `final` en lugar de `@Autowired` en campo.
   - Que `save()` persista de verdad.
@@ -94,3 +94,16 @@ Entorno del usuario: Maven 3.9.11 con JDK 21. El comando `java` del PATH en un e
 
 <!-- Registrar aquí cada paso revisado: fecha, resultado y pendientes. -->
 - 2026-11-07: diagnóstico hecho y guía de la Fase 1 entregada. Pendiente: el usuario empieza el Paso 0.
+- 2026-11-08: commit `4d79e07`, renombra las entidades JPA con el sufijo `Entity`. No estaba en la guía; es válido.
+- 2026-11-16: **Paso 0 hecho. Revisión del Paso 1 (commit `fea9d8c`): NO está listo; el proyecto no compila.**
+  - Bien: inyección por constructor en todas las clases, `UserDetailsService` borrado y `List` en lugar de `Optional<List>` en el repositorio y el servicio.
+  - Pendiente de revisar cuando el usuario corrija (en este orden):
+    1. `persistence/mapper/PurchaseMapper.java`: los `@Mapping(source = "purchase.xxx")` usan el nombre de parámetro antiguo (ahora es `purchaseEntity`). El error viene del commit del renombrado.
+    2. `web/controller/ProductController.getByCategory`: sigue con `.map()`/`.orElse()` sobre una `List` (error de compilación) y responde `CREATED`. Lo esperado: 200, también con `[]`.
+    3. El `save()` de `ProductoRepository` y `CompraRepository` sigue sin llamar al `CrudRepository.save()`. Hay que mapear la entidad que devuelve. En compras, revisar `cascade` en `PurchaseEntity.products`.
+  - El commit mezcló cambios de otros pasos (pom y migración a `.yml`) con errores que impiden arrancar:
+    - pom: `<name>@{project.artifactId}</name>` debe ser `${...}`, y la descripción dice "Spring 4".
+    - `application.yml`: `@project.name` sin `@` de cierre; los valores `@...@` deben ir entre comillas; `${SPRING_PROFILES_ACTIVE}` sin valor por defecto (debería ser `:dev`); `management.*` no hace nada sin actuator.
+    - `application-dev.yml`: `logging.config` apunta a un log4j2 que no existe; `SELECT-1` es SQL inválido (mejor quitarlo); `${PASSWORD}` debe ser `${DB_PASSWORD}`; `jpa.hibernate.default_schema` es una ruta inválida; hay erratas en los nombres de variables (`MAXIUM`, `MINIUM`, `THREshold`); `@hikari.pool.name@` y `@datasource.url.application.name@` no están definidos en el pom.
+  - `./mvnw` falla al descargarse (curl error 23). Se usa el `mvn` del sistema; queda pendiente revisar `.mvn/wrapper/`.
+  - Siguiente: el usuario corrige, verifica con `mvn clean compile` y hace un commit `fix: completa paso 1`. Luego se pide "revisa el paso 1" y, si está bien, se pasa al Paso 2.
