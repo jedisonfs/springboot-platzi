@@ -16,7 +16,7 @@ import java.util.Optional;
 public interface ProductRepostitory {
 
     List<ProductDTO> getAll();
-    Optional<List<ProductDTO>> getByCategory(int categpryId);
+    List<ProductDTO> getByCategory(int categpryId);
     Optional<List<ProductDTO>> getScarseProducts(int quantity);
     Optional<ProductDTO> getProduct(int productId);
     ProductDTO save(ProductDTO productDTO);

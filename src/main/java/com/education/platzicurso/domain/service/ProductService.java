@@ -12,8 +12,11 @@ import java.util.Optional;
 @Service
 public class ProductService {
 
-    @Autowired
-    private ProductRepostitory productRepostitory;
+    private final ProductRepostitory productRepostitory;
+
+    public ProductService(ProductRepostitory productRepostitory) {
+        this.productRepostitory = productRepostitory;
+    }
 
     @Transactional(readOnly = true)
     public List<ProductDTO> getAll(){
@@ -26,7 +29,7 @@ public class ProductService {
     }
 
     @Transactional(readOnly = true)
-    public Optional<List<ProductDTO>> getByCategory(int categoryId) {
+    public List<ProductDTO> getByCategory(int categoryId) {
         return productRepostitory.getByCategory(categoryId);
     }
 

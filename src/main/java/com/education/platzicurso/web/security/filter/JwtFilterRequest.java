@@ -28,13 +28,15 @@ import com.education.platzicurso.web.security.JWTUtil;
 @Component
 public class JwtFilterRequest extends OncePerRequestFilter {
 
-	@Autowired
-	private JWTUtil jwtUtil;
+	private final JWTUtil jwtUtil;
+	private final SecurityUserDetailsService securityUserDetailsService;
 
-	@Autowired
-	private SecurityUserDetailsService securityUserDetailsService;
+    public JwtFilterRequest(JWTUtil jwtUtil, SecurityUserDetailsService securityUserDetailsService) {
+        this.jwtUtil = jwtUtil;
+        this.securityUserDetailsService = securityUserDetailsService;
+    }
 
-	/*
+    /*
 	 * Valida que dentro del header de la peticion viene un token y si este es
 	 * valido
 	 */

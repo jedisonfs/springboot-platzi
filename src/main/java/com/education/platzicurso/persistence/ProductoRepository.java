@@ -28,9 +28,9 @@ public class ProductoRepository implements ProductRepostitory {
 	}
 
 	@Override
-	public Optional<List<ProductDTO>> getByCategory(int idCategoria) {
+	public List<ProductDTO> getByCategory(int idCategoria) {
 		List<ProductEntity> productEntities = productoCrudRepository.findByCategoryIdOrderByNameAsc(idCategoria);
-		return Optional.of(productMapper.toProducts(productEntities));
+		return productMapper.toProducts(productEntities);
 	}
 
 	@Override

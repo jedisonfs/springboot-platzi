@@ -11,19 +11,16 @@
 	</parent>
 
 	<groupId>com.education</groupId>
-	<artifactId>platzi-curso</artifactId>
+	<artifactId>platzi-curso-migration</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
-	<name>platzi-curso</name>
-	<description>Proyecto de estudio.</description>
+	<name>@{project.artifactId}</name>
+	<description>Proyecto de estudio spring platzi - en proceso de migracion a java 21 y Spring 4.</description>
 
 
 	<properties>
 		<java.version>1.8</java.version>
-		<maven.compiler.source>1.8
-		</maven.compiler.source> <!-- Codigo como se va compilar el proyecto en este caso JAVA 1.8 -->
-		<maven.compiler.target>1.8
-		</maven.compiler.target> <!-- Se va ejecutar este codigo sobre una version JAVA 1.8 no se puede ejecutar 
-			un codigo de java 8 en sobre un java 7 -->
+		<maven.compiler.source>1.8</maven.compiler.source> <!-- Codigo como se va compilar el proyecto en este caso JAVA 1.8 -->
+		<maven.compiler.target>1.8</maven.compiler.target> <!-- Se va ejecutar este codigo sobre una version JAVA 1.8 no se puede ejecutar un codigo de java 8 en sobre un java 7 -->
 	</properties>
 
 	<dependencies>

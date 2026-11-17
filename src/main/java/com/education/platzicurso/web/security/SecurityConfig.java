@@ -17,13 +17,15 @@ import com.education.platzicurso.web.security.filter.JwtFilterRequest;
 @EnableWebSecurity
 public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
-	@Autowired
-	private SecurityUserDetailsService detailsService;
+	private final SecurityUserDetailsService detailsService;
+	private final JwtFilterRequest jwtRequest;
 
-	@Autowired
-	private JwtFilterRequest jwtRequest;
+    public SecurityConfig(SecurityUserDetailsService detailsService, JwtFilterRequest jwtRequest) {
+        this.detailsService = detailsService;
+        this.jwtRequest = jwtRequest;
+    }
 
-	/*
+    /*
 	 * Con este metodo se esta definiendo el usuario con el cual se van a logear en
 	 * la aplicacion para que esto sea posible el usuario debe ser una clase que
 	 * extienda de UserDeatilsService y sobreescribir el metodo loginUserByUsername

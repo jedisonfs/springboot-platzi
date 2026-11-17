@@ -13,10 +13,13 @@ import com.education.platzicurso.domain.repository.PurchaseRepository;
 @Service
 public class PurchaseService {
 
-	@Autowired
-	private PurchaseRepository purchaseRepository;
+	private final PurchaseRepository purchaseRepository;
 
-	@Transactional(readOnly = true)
+    public PurchaseService(PurchaseRepository purchaseRepository) {
+        this.purchaseRepository = purchaseRepository;
+    }
+
+    @Transactional(readOnly = true)
 	public List<PurchaseDTO> getAll() {
 		return purchaseRepository.getAll();
 	}

@@ -23,11 +23,13 @@ import io.swagger.annotations.ApiResponses;
 @RequestMapping("/purchase")
 public class PurchaseController {
 
-	@Autowired
-	private PurchaseService purchaseService;
+	private final PurchaseService purchaseService;
 
-	
-	@ApiOperation(value = "Get all purchases", notes = "", tags = "PurchaseDTO")
+    public PurchaseController(PurchaseService purchaseService) {
+        this.purchaseService = purchaseService;
+    }
+
+    @ApiOperation(value = "Get all purchases", notes = "", tags = "PurchaseDTO")
 	@ApiResponses(value = {
 			@ApiResponse(code = 200 , message = "OK"),
 			@ApiResponse(code = 404 , message = "Not Found PurchaseDTO"),

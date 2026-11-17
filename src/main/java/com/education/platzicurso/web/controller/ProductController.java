@@ -26,10 +26,13 @@ import io.swagger.annotations.ExampleProperty;
 @RequestMapping("/product")
 public class ProductController {
 
-	@Autowired
-	private ProductService productService;
+	private final ProductService productService;
 
-	@GetMapping("/all")
+    public ProductController(ProductService productService) {
+        this.productService = productService;
+    }
+
+    @GetMapping("/all")
 	@ApiOperation( value = "Get all supermakert products", notes = "Get all supermakert products", tags = "ProductDTO")
 	@ApiResponses({
 		@ApiResponse(code = 200 , message = "OK"),
